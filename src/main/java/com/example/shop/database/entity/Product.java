@@ -3,6 +3,9 @@ package com.example.shop.database.entity;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
@@ -16,7 +19,10 @@ public abstract class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Product's name is required.")
     private String name;
+    @NotNull(message = "Product's price is required")
+    @PositiveOrZero(message = "Product's price cannot be negative.")
     private Double price;
 
     public Product(){}

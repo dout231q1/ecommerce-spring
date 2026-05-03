@@ -2,6 +2,7 @@ package com.example.shop.service;
 
 import com.example.shop.database.entity.Product;
 import com.example.shop.database.repository.ProductRepository;
+import com.example.shop.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class ProductService {
     }
 
     public Product findById(Long id){
-        return productRepository.findById(id).orElseThrow();
+        return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
     }
 
     public Product save(Product product){
@@ -27,11 +28,12 @@ public class ProductService {
     }
 
     public void delete(Long id){
+        productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
         productRepository.deleteById(id);
     }
 
     public Product update(Long id, Product product){
-        Product existing = productRepository.findById(id).orElseThrow();
+        Product existing = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
         existing.setName(product.getName());
         existing.setPrice(product.getPrice());
         existing.updateFrom(product);

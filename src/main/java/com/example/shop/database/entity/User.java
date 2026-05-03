@@ -1,6 +1,9 @@
 package com.example.shop.database.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name="users") // rename table name user to users
@@ -8,7 +11,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Username is required.")
     private String username;
+    @NotNull(message = "Balance is required.")
+    @PositiveOrZero(message = "Balance cannot be negative.")
     private Double balance;
 
     public User(){}

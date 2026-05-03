@@ -2,6 +2,7 @@ package com.example.shop.service;
 
 import com.example.shop.database.entity.User;
 import com.example.shop.database.repository.UserRepository;
+import com.example.shop.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class UserService {
     }
 
     public User findById(Long id){
-        return userRepository.findById(id).orElseThrow();
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
     public List<User> findAll(){
