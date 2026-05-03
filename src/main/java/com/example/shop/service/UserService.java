@@ -1,6 +1,8 @@
 package com.example.shop.service;
 
+import com.example.shop.database.entity.Cart;
 import com.example.shop.database.entity.User;
+import com.example.shop.database.repository.CartRepository;
 import com.example.shop.database.repository.UserRepository;
 import com.example.shop.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -10,9 +12,11 @@ import java.util.List;
 @Service
 public class UserService {
     private UserRepository userRepository;
+    private CartRepository cartRepository;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository, CartRepository cartRepository){
         this.userRepository = userRepository;
+        this.cartRepository = cartRepository;
     }
 
     public User findById(Long id){
@@ -24,6 +28,8 @@ public class UserService {
     }
 
     public User save(User user){
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        cartRepository.save(new Cart(savedUser));
+        return savedUser;
     }
 }
