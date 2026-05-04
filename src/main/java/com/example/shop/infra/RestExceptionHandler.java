@@ -6,7 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.stream.Collectors;
 
@@ -27,6 +28,18 @@ public class RestExceptionHandler {
                 .sorted()
                 .collect(Collectors.joining(" | "));
         ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST, message);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    private ResponseEntity<ErrorResponse> notValidURLhandler(NoResourceFoundException exception){
+        ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST, "Invalid URL '" + exception.getResourcePath() + "'. Please check the endpoint." );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    private ResponseEntity<ErrorResponse> methodArgumentTypeMismatchHandler(MethodArgumentTypeMismatchException exception) {
+        ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST,  "'" + exception.getValue() + "' for parameter '" +  exception.getName() + "'. Excepted a valid number.'");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }
