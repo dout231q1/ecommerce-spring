@@ -47,7 +47,7 @@ DELETE /products/{id}
 # Clone the repository and switch to this branch
 git clone https://github.com/dout231q1/ecommerce-oop
 cd ecommerce-oop
-git checkout v3-spring/user
+git checkout v3-spring/product
 
 # Configure your credentials in
 src/main/resources/application.properties
