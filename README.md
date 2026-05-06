@@ -1,6 +1,6 @@
 # ecommerce-oop
 
-A study project built to learn Spring Boot in practice — starting from a pure Java OOP implementation and progressively rewriting it into a fully functional REST API.
+A progressive e-commerce project — starting from a pure Java OOP implementation and evolving into a fully functional REST API with Spring Boot.
 
 Each version introduces a new module, keeping the changes small and the evolution clear.
 
@@ -16,12 +16,14 @@ Each version introduces a new module, keeping the changes small and the evolutio
 
 ---
 
-## Stack
+## Tech Stack
 
 - Java 17
 - Spring Boot
 - Spring Data JPA
 - PostgreSQL
+- Lombok
+- Bean Validation (jakarta.validation)
 
 ---
 
@@ -67,9 +69,14 @@ Credit Card  (5% fee applied)
 ## How to Run
 
 ```bash
+# Clone the repository and switch to this branch
 git clone https://github.com/dout231q1/ecommerce-oop
 cd ecommerce-oop
-# create the database, configure application.properties, then:
+
+# Configure your credentials in
+src/main/resources/application.properties
+
+# Run
 ./mvnw spring-boot:run
 ```
 
