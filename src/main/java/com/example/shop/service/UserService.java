@@ -11,8 +11,8 @@ import java.util.List;
 
 @Service
 public class UserService {
-    private UserRepository userRepository;
-    private CartRepository cartRepository;
+    private final UserRepository userRepository;
+    private final CartRepository cartRepository;
 
     public UserService(UserRepository userRepository, CartRepository cartRepository){
         this.userRepository = userRepository;

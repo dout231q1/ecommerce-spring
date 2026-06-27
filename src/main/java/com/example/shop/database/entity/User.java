@@ -33,7 +33,8 @@ public class User {
     }
 
     public String getUsername(){
-        return username;}
+        return username;
+    }
 
     public Double getBalance(){
         return balance;
