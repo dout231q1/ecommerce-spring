@@ -27,7 +27,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User save(User user){
+    public User createUser(User user){
         User savedUser = userRepository.save(user);
         cartRepository.save(new Cart(savedUser));
         return savedUser;
