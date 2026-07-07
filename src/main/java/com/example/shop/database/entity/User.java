@@ -13,15 +13,19 @@ import jakarta.validation.constraints.PositiveOrZero;
 @Entity
 @Table(name="users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Unique identifier of the user", example = "1")
     private Long id;
-    @Schema(description = "Username", example = "Robert Pattinson")
+
     @NotBlank(message = "Username is required.")
+    @Schema(description = "Name chosen by the user to identify their account", example = "Robert Pattinson")
     private String username;
+
     @NotNull(message = "Balance is required.")
     @PositiveOrZero(message = "Balance cannot be negative.")
-    @Schema(description = "Balance", example = "1500.00")
+    @Schema(description = "Current amount of money available in the user's account", example = "1500.00")
     private Double balance;
 
     public User(){}
