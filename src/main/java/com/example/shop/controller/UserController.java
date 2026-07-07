@@ -1,7 +1,15 @@
 package com.example.shop.controller;
 
 import com.example.shop.database.entity.User;
+import com.example.shop.infra.ErrorResponse;
+import com.example.shop.infra.docs.UserDocs;
 import com.example.shop.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +31,22 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Operation(summary = "Get a user by ID", description = "Retrieves a single user by their unique identifier")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User retrieved successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = User.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "404", description = "No user found with the given ID",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(value = UserDocs.USER_NOT_FOUND)
+                    )
+            )
+    })
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id){
         User userFound = userService.findById(id);
