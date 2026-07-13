@@ -19,4 +19,28 @@ public interface UserDocs {
             """;
 
     String EMPTY_LIST = "[]";
+
+    String USER_MISSING_FIELDS_EXAMPLE = """
+            {
+                "timestamp": "2026-07-13T19:38:05",
+                "status": "400 BAD_REQUEST",
+                "message": "Validation failed for the submitted fields",
+                "fields": {
+                    "balance": "Balance is required.",
+                    "balance": "Balance cannot be negative.",
+                    "username": "Username is required."
+                }
+            }
+            """;
+
+    String USER_INVALID_BALANCE_EXAMPLE = """
+            {
+                "timestamp": "2026-07-13T19:38:05",
+                "status": "400 BAD_REQUEST",
+                "message": "Validation failed for the submitted fields",
+                "fields": {
+                    "balance": "Balance cannot be negative."
+                }
+            }
+            """;
 }

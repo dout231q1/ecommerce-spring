@@ -79,6 +79,34 @@ public class UserController {
         return ResponseEntity.ok(allUsers);
     }
 
+    @Operation(summary = "Create a new user", description = "Registers a new user in the system")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "User registered successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = User.class)
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Failed to create a user. Check 'errors' field for details",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Missing Required Field",
+                                            summary = "Example when a required field is not provided",
+                                            value = UserDocs.USER_MISSING_FIELDS_EXAMPLE
+                                    ),
+                                    @ExampleObject(
+                                            name = "Invalid Balance",
+                                            summary = "Example when balance is provided but negative",
+                                            value = UserDocs.USER_INVALID_BALANCE_EXAMPLE
+                                    )
+                            }
+                    )
+            )
+
+    })
     @PostMapping
     public ResponseEntity<User> createUser(@Valid @RequestBody User user){
         User userCreated = userService.save(user);
