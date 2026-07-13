@@ -2,6 +2,7 @@ package com.example.shop.controller;
 
 import com.example.shop.database.entity.User;
 import com.example.shop.infra.ErrorResponse;
+import com.example.shop.infra.docs.GlobalErrorDocs;
 import com.example.shop.infra.docs.UserDocs;
 import com.example.shop.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,6 +45,13 @@ public class UserController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = ErrorResponse.class),
                             examples = @ExampleObject(value = UserDocs.USER_NOT_FOUND)
+                    )
+            ),
+            @ApiResponse(responseCode = "400", description = "Invalid 'id' parameter. Must be a valid number",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorResponse.class),
+                            examples = @ExampleObject(value = GlobalErrorDocs.INVALID_ID_PARAMETER_EXAMPLE)
                     )
             )
     })

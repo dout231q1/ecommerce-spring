@@ -7,6 +7,7 @@ public interface UserDocs {
                 "message": "User with ID 99 not found"
             }
             """;
+
     String POPULATED_LIST = """
             [
                 {
