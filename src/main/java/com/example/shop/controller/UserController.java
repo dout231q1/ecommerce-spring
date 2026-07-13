@@ -53,6 +53,26 @@ public class UserController {
         return ResponseEntity.ok(userFound);
     }
 
+    @Operation(summary = "Get all existing users", description = "Retrieves each registered user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User's list retrieved succesfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Populated List",
+                                            summary = "Example when there are users registered",
+                                            value = UserDocs.POPULATED_LIST
+                                    ),
+                                    @ExampleObject(
+                                            name = "Empty List",
+                                            summary = "Example when no users are found",
+                                            value = UserDocs.EMPTY_LIST
+                                    )
+                            }
+                    )
+            )
+    })
     @GetMapping
     public ResponseEntity<List<User>> listUsers(){
         List<User> allUsers = userService.findAll();
